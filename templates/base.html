@@ -6,12 +6,71 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <!-- Bootstrap -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
+    <!-- style.css -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <title>{% block title %}{% endblock title %}Leurres VS Stats</title>
 </head>
 <body>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a href="#" class="navbar-brand">
+                <img class="logo" src="{% static 'assets/images/logofish2.png' %}" alt="logo">
+            </a>
+            <div class="container navigation">
+                <ul class="d-flex p-0 justify-content-around">
+                    <li class="list active">
+                        <a href="#">
+                            <span class="icon" id="myicon">
+                                <ion-icon name="home-outline"></ion-icon>
+                            </span>
+                            <span class="text">Home</span>
+                        </a>
+                    </li>
+                    <li class="list">
+                        <a href="#">
+                            <span class="icon">
+                                <ion-icon name="stats-chart-outline"></ion-icon>
+                            </span>
+                            <span class="text">Stats</span>
+                        </a>
+                    </li>
+                    <li class="list">
+                        <a href="#">
+                            <span class="icon icon2">
+                                <ion-icon name="person-circle-outline"></ion-icon>
+                            </span>
+                            <span class="text">Profile</span>
+                        </a>
+                    </li>
+                    <li class="list">
+                        <a href="#">
+                            <span class="icon icon2">
+                                <ion-icon name="search-outline"></ion-icon>
+                            </span>
+                            <span class="text">Search</span>
+                        </a>
+                    </li>
+                    <li class="list">
+                        <a href="#">
+                            <span class="icon icon2">
+                                <ion-icon name="log-in-outline"></ion-icon>
+                                <!-- <ion-icon name="log-out-outline"></ion-icon> -->
+                            </span>
+                            <span class="text">Login</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     {% block content %}{% endblock content %}
 </body>
     {% block script %}{% endblock script %}
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="{% static 'js/script.js' %}"></script>
 </html>
