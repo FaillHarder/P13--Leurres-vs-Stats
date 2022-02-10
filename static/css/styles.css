@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -5,13 +7,23 @@
     font-family: 'Poppins', sans-serif;
 }
 
+@font-face {
+    font-family: 'RobinGraffiti';
+    src: local('RobinGraffiti'),
+        url('../fonts/RobinGraffitiFilledin.ttf') format("opentype");
+}
+
+
+
 body {
     background: rgb(24, 23, 23);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
-
+header {
+    margin-bottom: 50px;
+}
 
 ion-icon {
     pointer-events: none;
@@ -32,7 +44,6 @@ ion-icon {
     position: absolute;
     opacity: 0;
     margin-top: 40px;
-    color: rgb(0, 89, 255);
 }
 
 .navigation ul li a .icon {
@@ -75,10 +86,47 @@ footer ul li a .icon:hover {
 }
 /* end footer */
 
+/* carousel */
+.carousel-item {
+    height: 30rem;
+    color: white;
+    position: relative;
+}
+.container-carousel {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-bottom: 40px;
+}
+.overlay-image {
+    height: auto;
+    position: absolute;
+    opacity: 0.8;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    background-position: center;
+    background-size: cover;
+}
+
+#myCarousel h1 {
+    font-family: 'Anton', sans-serif;
+    text-transform: uppercase;
+    text-shadow: rgb(9, 8, 80) 2px 0 5px;
+}
+
+#myCarousel p {
+    text-shadow: rgb(9, 8, 80) 2px 0 5px;
+    font-size: x-large;
+}
+/* end carousel */
 /* ------------------ */
 
-/* navbar */
+
 @media (max-width: 580px) {
+    /* navbar */
     .navbar-brand {
         margin: 0;
     }
@@ -96,6 +144,15 @@ footer ul li a .icon:hover {
     .logo {
         width: 0px;
     }
+    /* end navbar */
+
+    /* carousel */
+    .carousel-item {
+        height: 20rem;
+    }
+    /* end carousel */
 }
-/* end navbar */
+
+
+
 
