@@ -4,7 +4,7 @@ from django.test import TestCase, RequestFactory
 
 class TestHomeView(TestCase):
 
-    def setUp(self) -> None:
+    def setUp(self):
         self.factory = RequestFactory()
         return super().setUp()
     
@@ -12,4 +12,4 @@ class TestHomeView(TestCase):
         request = self.factory.get('/')
         response = views.index(request)
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Hello World!")
+        self.assertContains(response, "Lorem, ipsum dolor.")
