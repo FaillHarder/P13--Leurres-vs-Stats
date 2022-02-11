@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Registrer - {% endblock title %}
+
+{% block content %}
+    <h1>Créer un compte</h1>
+    {% if form.errors %}
+        {{ form.errors }}
+    {% endif %}
+    <form method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <button type="submit" >Valider</button>
+    </form>
+{% endblock content %}

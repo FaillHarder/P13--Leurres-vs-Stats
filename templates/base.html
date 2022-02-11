@@ -24,7 +24,7 @@
                     <div class="container navigation">
                         <ul class="d-flex p-0 justify-content-around list-unstyled">
                             <li class="list active">
-                                <a href="#">
+                                <a href="{% url 'index' %}">
                                     <span class="icon" id="myicon">
                                         <ion-icon name="home-outline"></ion-icon>
                                     </span>
@@ -39,6 +39,7 @@
                                     <span class="text">Stats</span>
                                 </a>
                             </li>
+                            {% if user.is_authenticated %}
                             <li class="list">
                                 <a href="#">
                                     <span class="icon icon2">
@@ -58,12 +59,30 @@
                             <li class="list">
                                 <a href="#">
                                     <span class="icon icon2">
+                                        <ion-icon name="log-out-outline"></ion-icon>
+                                    </span>
+                                    <span class="text">Logout</span>
+                                </a>
+                            </li>
+                            {% else %}
+                            <li class="list">
+                                <a href="#">
+                                    <span class="icon icon2">
+                                        <ion-icon name="search-outline"></ion-icon>
+                                    </span>
+                                    <span class="text">Search</span>
+                                </a>
+                            </li>
+                            <li class="list">
+                                <a href="{% url 'registrer' %}">
+                                    <span class="icon icon2">
                                         <ion-icon name="log-in-outline"></ion-icon>
                                         <!-- <ion-icon name="log-out-outline"></ion-icon> -->
                                     </span>
                                     <span class="text">Login</span>
                                 </a>
                             </li>
+                            {% endif %}
                         </ul>
                     </div>
                 </div>
