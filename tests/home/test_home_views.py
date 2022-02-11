@@ -13,4 +13,4 @@ class TestHomeView(TestCase):
         request = self.factory.get('/')
         response = views.index(request)
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Lorem, ipsum dolor.")
+        self.assertContains(response, "Vous ne savez pas quel leurre choisir?")
