@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Registrer - {% endblock title %}
+{% block title %}Login - {% endblock title %}
 
 {% block content %}
-    <h1>Créer un compte</h1>
+    <h1>Se connecter</h1>
     {% if form.errors %}
         {{ form.errors }}
     {% endif %}
     <form method="post">
+        {{ message }}
         {{ form.as_p }}
         {% csrf_token %}
         <button type="submit" >Valider</button>
     </form>
-    <a href="{% url 'login' %}">Se connecter</a>
 {% endblock content %}
