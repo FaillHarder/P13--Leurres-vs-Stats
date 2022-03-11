@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
-
 * {
     margin: 0;
     padding: 0;
@@ -9,11 +8,12 @@
 
 @font-face {
     font-family: 'RobinGraffiti';
-    src: local('RobinGraffiti'),
-        url('../fonts/RobinGraffitiFilledin.ttf') format("opentype");
+    src: local('RobinGraffiti'), url('../fonts/RobinGraffitiFilledin.ttf') format("opentype");
 }
 
-
+:root {
+    --main-color: rgb(0, 89, 255)
+}
 
 body {
     background: rgb(24, 23, 23);
@@ -21,18 +21,18 @@ body {
     display: flex;
     flex-direction: column;
 }
-header {
-    margin-bottom: 50px;
-}
 
 ion-icon {
     pointer-events: none;
 }
 
+
 /* navbar */
+
 .logo {
     width: 60px;
 }
+
 .navigation ul a {
     text-decoration: none;
     display: flex;
@@ -54,23 +54,32 @@ ion-icon {
     color: #fff;
 }
 
+.navigation ul li a .icon:hover {
+    color: var(--main-color);
+    transition: 0.5s;
+}
+
 .navigation ul li a .icon2 {
     font-size: 1.8rem;
 }
 
 .navigation ul li.active a .icon {
-    color: rgb(0, 89, 255);
+    color: var(--main-color);
     transition: 0.5s;
 }
 
 .navigation ul li.active a .text {
     opacity: 1;
     transition: opacity 0.6s linear;
-    color: rgb(0, 89, 255);
+    color: var(--main-color);
 }
+
+
 /* end navbar */
 
+
 /* footer */
+
 footer {
     margin-top: auto;
 }
@@ -81,34 +90,18 @@ footer ul li a .icon {
 }
 
 footer ul li a .icon:hover {
-    color: rgb(0, 89, 255);
+    color: var(--main-color);
     transition: 0.5s;
 }
+
+
 /* end footer */
 
+
 /* carousel */
-.carousel-item {
-    height: 30rem;
-    color: white;
-    position: relative;
-}
-.container-carousel {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding-bottom: 40px;
-}
-.overlay-image {
-    height: auto;
-    position: absolute;
-    opacity: 0.8;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    top: 0;
-    background-position: center;
-    background-size: cover;
+
+#myCarousel {
+    margin-top: auto;
 }
 
 #myCarousel h1 {
@@ -121,38 +114,178 @@ footer ul li a .icon:hover {
     text-shadow: rgb(9, 8, 80) 2px 0 5px;
     font-size: x-large;
 }
-/* end carousel */
-/* ------------------ */
 
+.carousel-item {
+    height: 30rem;
+    color: white;
+    position: relative;
+}
+
+.container-carousel {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-bottom: 40px;
+}
+
+.overlay-image {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    background-position: center;
+    background-size: cover;
+}
+
+
+/* end carousel */
+
+
+/* form */
+
+.logform {
+    margin: 40px auto;
+    max-width: 500px;
+    background-color: #343a40;
+    border-radius: 15px;
+    box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
+}
+
+form .title {
+    text-align: center;
+    font-size: 35px;
+    margin-top: 30px;
+    color: var(--main-color);
+    font-weight: 600;
+}
+
+form .error {
+    height: 15px;
+}
+
+form .error ul li {
+    list-style: none;
+}
+
+.form-group {
+    margin: 30px 20px 0px 20px;
+    position: relative;
+}
+
+.form-group button {
+    margin: auto;
+}
+
+.form-group p {
+    margin-top: 5px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.logform form .form-group i {
+    background: var(--main-color);
+    color: #fff;
+    font-size: 20px;
+    width: 38px;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--main-color);
+    border-radius: 8px 0 0 8px;
+}
+
+.logform form .form-group input {
+    padding-left: 45px;
+    border-radius: 9px 5px 5px 9px;
+}
+
+.logform form .form-group button {
+    display: flex;
+    justify-content: center;
+}
+
+.logform .errorlist {
+    margin-left: 0;
+}
+
+.logform .error {
+    margin-left: 30px;
+}
+
+@media (max-width: 580px) {
+    .logform {
+        margin: auto;
+        max-width: 300px;
+    }
+    form .title {
+        margin-top: 15px;
+        font-size: 20px;
+    }
+    .form-group {
+        margin: 15px 10px 0px 10px;
+    }
+    .logform form .form-group input {
+        height: 30px;
+    }
+    .form-group .text-white ul li {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 300px) {
+    .logform {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        max-width: 260px;
+    }
+    form .title {
+        margin-top: 10px;
+        font-size: 18px;
+    }
+    .logform form .form-group input {
+        font-size: 14px;
+    }
+}
+
+
+/* endform */
+
+
+/* ------------------ */
 
 @media (max-width: 580px) {
     /* navbar */
     .navbar-brand {
         margin: 0;
     }
-    .navigation ul .list  {
+    .navigation ul .list {
         width: 39px;
     }
     .navigation ul li a .icon {
         font-size: 1rem;
     }
-
     .navigation ul li a .text {
         font-size: 0rem;
     }
-
     .logo {
         width: 0px;
     }
     /* end navbar */
-
     /* carousel */
     .carousel-item {
-        height: 20rem;
+        height: 22rem;
+    }
+    #myCarousel p {
+        font-size: 1rem;
+    }
+    #myCarousel a {
+        font-size: 1rem;
     }
     /* end carousel */
 }
-
-
-
-
