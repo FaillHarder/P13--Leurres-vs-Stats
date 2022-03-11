@@ -7,6 +7,7 @@ class User(AbstractUser):
         verbose_name='email address',
         max_length=255,
         unique=True,
+        error_messages={"unique": "Cette adresse mail existe déjà"}
     )
     username = models.CharField(null=True, max_length=30)
     # Login with email

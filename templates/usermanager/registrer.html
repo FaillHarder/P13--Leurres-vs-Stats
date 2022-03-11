@@ -1,17 +1,48 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends 'base.html' %} {% load static %} {% block title %}Registrer - {% endblock title %} {% block content %}
 
-{% block title %}Registrer - {% endblock title %}
-
-{% block content %}
-    <h1>Créer un compte</h1>
-    {% if form.errors %}
-        {{ form.errors }}
-    {% endif %}
-    <form method="post">
-        {{ form.as_p }}
+<div class="container logform">
+    <form method="POST">
         {% csrf_token %}
-        <button type="submit" >Valider</button>
+        <div class="title">Créer un compte</div>
+
+        <div class="form-group">
+            <i>
+                <ion-icon name="mail-outline"></ion-icon>
+            </i>
+            <input class="form-control" type="email" name="email" placeholder="Email">
+        </div>
+
+        <div class="error">
+            <strong class="">{{ form.email.errors }}</strong>
+        </div>
+
+        <div class="form-group">
+            <i>
+                <ion-icon name="lock-closed-outline"></ion-icon>
+            </i>
+            <input class="form-control" type="password" name="password1" placeholder="Mot de passe">
+        </div>
+
+        <div class="form-group">
+            <small class="text-white">{{ form.password1.help_text }}</small>
+        </div>
+
+        <div class="form-group">
+            <i>
+                <ion-icon name="lock-closed-outline"></ion-icon>
+            </i>
+            <input class="form-control" type="password" name="password2" placeholder="Confirmer mot de passe">
+        </div>
+
+        <div class="error">
+            <strong>{{ form.password2.errors }}</strong>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit" name="submit-registrer">Valider</button>
+            <p>Déjà membre? <a href="{% url 'login' %}">Se connecter</a></p>
+        </div>
     </form>
-    <a href="{% url 'login' %}">Se connecter</a>
+</div>
+
 {% endblock content %}
