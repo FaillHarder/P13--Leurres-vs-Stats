@@ -14,7 +14,7 @@ jobs:
     services:
       database:
         image: postgres
-        port:
+        ports:
           - 5432:5432
         env:
           POSTGRES_DB: ${{ secrets.SQL_DATABASE_NAME }}
