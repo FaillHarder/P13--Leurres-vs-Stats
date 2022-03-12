@@ -96,9 +96,9 @@ if os.getenv('GITHUB_WORKFLOW'):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'github_actions',
-            'USER': 'postgres',
-            'PASSWORD': 'postgres',
+            'NAME': 'leurresvs',
+            'USER': 'leurresvsdev',
+            'PASSWORD': 'leurresvspassword',
             'HOST': '127.0.0.1',
             'PORT': '5432',
         }
