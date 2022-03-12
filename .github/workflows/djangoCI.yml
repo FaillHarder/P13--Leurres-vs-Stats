@@ -11,16 +11,6 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    services:
-      database:
-        image: postgres
-        ports:
-          - 5432:5432
-        env:
-          POSTGRES_DB: ${{ secrets.SQL_DATABASE_NAME }}
-          POSTGRES_USER: ${{ secrets.SQL_USER }}
-          POSTGRES_PASSWORD: ${{ secrets.SQL_PASSWORD }}
-
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python 3.10.1
