@@ -1,0 +1,65 @@
+[{
+        "model": "adddata.lure",
+        "pk": 1,
+        "fields": {
+            "name": "popper",
+            "description": "Le popper est un leurre dur démuni de bavette restant en permanence à la surface de l'eau. Il possède une face en biseau ou incurvée qui émet une gerbe d'eau sous la traction de la ligne en émettent un bruit, le fameux POP qui le caractérise."
+        }
+    },
+    {
+        "model": "adddata.lure",
+        "pk": 2,
+        "fields": {
+            "name": "stickbait",
+            "description": "Le stickbait est un leurre flottant ou légèrement coulant démuni de bavette. Ces lure restent en permanence en surface et ne plongent que très brièvement. Ils sont, sans aucun doute, ceux où le pêcheur a le plus d'incidence sur la nage."
+        }
+    },
+    {
+        "model": "adddata.lure",
+        "pk": 3,
+        "fields": {
+            "name": "jerkbait",
+            "description": "Le Jerkbait est un modèle de poisson nageur qui se distingue par son efficacité redoutable quand l'animation est faite correctement. Il présente généralement une forme assez reconnaissable avec ou sans bavette."
+        }
+    },
+    {
+        "model": "adddata.lure",
+        "pk": 4,
+        "fields": {
+            "name": "swimbait",
+            "description": "Le leurre swimbait est un lure articulé. A la récupération il prend automatiquement une nage en « S » qui provoque des changements rapides de direction avec un irrésistible mouvement de va et vient."
+        }
+    },
+    {
+        "model": "adddata.lure",
+        "pk": 5,
+        "fields": {
+            "name": "crankbait",
+            "description": "Le crankbait est un poisson nageur relativement facile à identifier, il est très souvent court et trapu avec une tête plus grosse que le reste du corps. Si on ajoute à cela une bavette parfois imposante on obtient un leurre de pêche avec une nage oscillante très rapide."
+        }
+    },
+    {
+        "model": "adddata.lure",
+        "pk": 6,
+        "fields": {
+            "name": "lipless",
+            "description": "Aussi appelés Vibrations, les lipless crankbaits sont des lure facilement reconnaissables à leur forme imitant un poisson, à l'absence de bavette ainsi qu'à un oeillet de fixation situé sur le haut de la tête."
+        }
+    },
+    {
+        "model": "adddata.lure",
+        "pk": 7,
+        "fields": {
+            "name": "Shad",
+            "description": "Le shad est un leurre souple imitant un vrai poisson, muni d'une large Caudale, qui provoque de nombreuses vibrations. Les Shads sont associés à des têtes plombées de formes et de poids différents qui vous permettront de les utiliser au lancer ou à la verticale."
+        }
+    },
+    {
+        "model": "adddata.lure",
+        "pk": 8,
+        "fields": {
+            "name": "Finesse",
+            "description": "Un leurre de type finess est un leurre souple, généralement assez long et fin, qui ne possède pas un paddle perpendiculaire au leurre. Il possède généralement une queue en V ou une queue droite"
+        }
+    }
+]
