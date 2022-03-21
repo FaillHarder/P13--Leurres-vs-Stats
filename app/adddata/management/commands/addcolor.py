@@ -16,7 +16,8 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         file_list = self.create_color_list_from_folder(self.IMAGE_PATH)
         file_dict = self.split_name_and_extension(file_list)
-        self.create_color_lure_into_db(file_dict)
+        self.create_color_lure_name_into_db(file_dict)
+        self.add_image_to_color_name(file_dict)
 
     def create_color_list_from_folder(self, folder_path):
         """method to create color name list from images in color_lure folder.
@@ -43,13 +44,16 @@ class Command(BaseCommand):
                     name_and_extension[f"{name[:-len(extension)]}"] = extension
         return name_and_extension
 
-    def create_color_lure_into_db(self, name_and_extension):
+    def create_color_lure_name_into_db(self, name_and_extension):
         """Create an object in the color model from a dictionary.
         Args:
-            (dict): return -> split_name_and_extension()
+            (dict): return -> from split_name_and_extension()
         """
-        for key, value in name_and_extension.items():
+        for key in name_and_extension.keys():
             Color.objects.get_or_create(name=key)
+
+    def add_image_to_color_name(self, name_and_extension):
+        for key, value in name_and_extension.items():
             color_object = Color.objects.get(name=key)
             if not color_object.image:
                 image = SimpleUploadedFile(
