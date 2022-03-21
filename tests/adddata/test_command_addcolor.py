@@ -1,10 +1,12 @@
-from app.adddata.models import Color
-from app.adddata.management.commands.addcolor import Command
+import tempfile
+from unittest.mock import patch
 
 from django.core.management import call_command
 from django.test import TestCase
 from PIL import Image
-import tempfile
+
+from app.adddata.models import Color
+from app.adddata.management.commands.addcolor import Command
 
 
 class TestCommand(TestCase):
@@ -21,11 +23,11 @@ class TestCommand(TestCase):
         }
         return super().setUp()
 
-    def test_color_list_from_folder_return_file_list(self):
-        # create image1.jpg, image2.jpeg, image3.png into temp_folder
-        self.create_image()
-        result = self.command.create_color_list_from_folder(self.temp_folder.name)
-        self.assertTrue(result == self.file_list)
+    @patch('os.listdir')
+    def test_color_list_from_folder_return_file_list(self, mock_listdir):
+        mock_listdir.return_value = self.file_list
+        result = Command().create_color_list_from_folder(self.temp_folder.name)
+        self.assertTrue(result == mock_listdir.return_value)
 
     def test_split_name_and_extension(self):
         result = self.command.split_name_and_extension(self.file_list)
