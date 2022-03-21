@@ -1,6 +1,6 @@
-# from django.urls import path
-# from app.adddata import views
+from django.urls import path
+from app.adddata import views
 
-# urlpatterns = [
-
-# ]
+urlpatterns = [
+    path('catchfish', views.catchfish, name="catchfish")
+]
