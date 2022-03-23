@@ -1,9 +1,8 @@
-from app.usermanager import models
-
-
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.test import TestCase, Client
+
+from app.usermanager import models
 
 
 class TestUsermanagerViews(TestCase):

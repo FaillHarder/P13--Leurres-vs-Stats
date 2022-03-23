@@ -41,7 +41,7 @@ class CatchFish(models.Model):
     fisherman = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Pécheur")
     lure = models.ForeignKey(Lure, on_delete=models.CASCADE, verbose_name="Leurre")
     color_lure = models.ForeignKey(Color, on_delete=models.CASCADE, verbose_name="Couleur du leurre")
-    sky_state = models.CharField(max_length=30, choices=SKY_CHOICES, default=CLEAR, verbose_name='Etat du ciel')
+    sky_state = models.CharField(max_length=30, choices=SKY_CHOICES, default=SUNNY, verbose_name='Etat du ciel')
     water_state = models.CharField(max_length=30, choices=WATER_CHOICES, default=CLEAR, verbose_name='Etat de l\'eau')
 
     def __str__(self) -> str:
