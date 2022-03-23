@@ -1,1 +1,33 @@
-{% extends 'base.html' %} {% load static %} {% block title %}CatchFish - {% endblock title %} {% block content %} {{ form.as_p }} {% endblock content %}
+{% extends 'base.html' %} {% load static %} {% block title %}CatchFish - {% endblock title %} {% block content %}
+
+<h1>mon form</h1>
+
+
+<div class="container-fluid">
+    <form action="" method="post">
+        {% csrf_token %}
+        <!-- <div class="form-group">
+            <label for="fisherman">Pécheur : </label>
+            {{ form.fisherman }}
+        </div> -->
+        <div class="form-group">
+            <label for="lure">Leurre utilisé : </label>
+            {{ form.lure }}
+        </div>
+        <div class="form-group">
+            <label for="color_lure">Couleur du leurre : </label>
+            {{ form.color_lure }}
+        </div>
+        <div class="form-group">
+            <label for="sky_state">Etat du ciel : </label>
+            {{ form.sky_state }}
+        </div>
+        <div class="form-group">
+            <label for="water_state">Etat de l'eau : </label>
+            {{ form.water_state }}
+        </div>
+        <button type="submit">Valider</button>
+    </form>
+</div>
+
+{% endblock content %}
