@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.test import TestCase, Client
 
-from app.adddata import models
+from app.adddata import models, forms
 
 
 class TestAdddataViews(TestCase):
@@ -33,6 +33,33 @@ class TestAdddataViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Couleur du leurre")
         self.assertTemplateUsed(response, "adddata/catchfish.html")
+
+    def test_post_catchfish(self):
+        self.client.login(
+            email=self.identifier["email"],
+            password=self.identifier["password"]
+        )
+        data = {
+            "lure": self.lure.pk,
+            "color_lure": self.color_lure.pk,
+            "sky_state": self.sky_state,
+            "water_state": self.water_state
+        }
+        response = self.client.post(self.url_catchfish, data)
+        self.assertEqual(response.status_code, 302)
+
+        form = forms.CatchFishForm(data=data)
+        self.assertTrue(form.is_valid())
+
+        catch_fish = form.save(commit=False)
+        catch_fish.fisherman = self.user
+        result = models.CatchFish.objects.count()
+        self.assertEqual(result, 1)
+        catch_fish_obj = models.CatchFish.objects.all()
+        self.assertTrue(
+            catch_fish_obj.__str__,
+            "(stickbait/ayu) (Ciel Ensoleillé/Eau Trouble). Pécheur : testemail@gmail.com>"
+        )
 
     def test_get_catchfish_view_with_anonymoususer(self):
         response = self.client.get(self.url_catchfish)
