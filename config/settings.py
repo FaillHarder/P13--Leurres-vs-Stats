@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'app.home.apps.HomeConfig',
     'app.usermanager.apps.UsermanagerConfig',
     'app.adddata.apps.AdddataConfig',
+    'app.fishingstats.apps.FishingstatsConfig',
 ]
 
 MIDDLEWARE = [
