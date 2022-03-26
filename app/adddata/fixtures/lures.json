@@ -50,7 +50,7 @@
         "model": "adddata.lure",
         "pk": 7,
         "fields": {
-            "name": "Shad",
+            "name": "shad",
             "description": "Le shad est un leurre souple imitant un vrai poisson, muni d'une large Caudale, qui provoque de nombreuses vibrations. Les Shads sont associés à des têtes plombées de formes et de poids différents qui vous permettront de les utiliser au lancer ou à la verticale."
         }
     },
@@ -58,7 +58,7 @@
         "model": "adddata.lure",
         "pk": 8,
         "fields": {
-            "name": "Finesse",
+            "name": "finesse",
             "description": "Un leurre de type finess est un leurre souple, généralement assez long et fin, qui ne possède pas un paddle perpendiculaire au leurre. Il possède généralement une queue en V ou une queue droite"
         }
     }
