@@ -24,6 +24,7 @@ urlpatterns = [
     path('', include('app.home.urls')),
     path('accounts/', include('app.usermanager.urls')),
     path('add/', include('app.adddata.urls')),
+    path('', include('app.fishingstats.urls'))
 ]
 
 if settings.DEBUG:
