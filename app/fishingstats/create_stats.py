@@ -5,7 +5,7 @@ from app.adddata.models import CatchFish, Lure, Color
 
 class FishingStats():
 
-    def top_lure_by_states(self, sky_state, water_state):
+    def top_lures_and_colors_by_states(self, sky_state, water_state):
         """Method to return lures stats compared with sky and water
 
         Args:
@@ -17,24 +17,27 @@ class FishingStats():
                 - key = name (lure)
                 - value = percentage
         """
-        query = Lure.objects.annotate(
+        query_lures = Lure.objects.annotate(
             num=Count(
                 "catchfish",
-                filter=Q(catchfish__sky_state=sky_state) & Q(catchfish__water_state=water_state)
+                filter=Q(catchfish__sky_state=sky_state)
+                & Q(catchfish__water_state=water_state)
                 )
             ).order_by("-num")
-        return FishingStats.convert_to_percentage(query)
 
-    def top_color_by_states(self, sky_state, water_state):
-        query = Color.objects.annotate(
+        query_colors = Color.objects.annotate(
             num=Count(
                 "catchfish",
-                filter=Q(catchfish__sky_state=sky_state) & Q(catchfish__water_state=water_state)
+                filter=Q(catchfish__sky_state=sky_state)
+                & Q(catchfish__water_state=water_state)
                 )
             ).order_by("-num")
-        return FishingStats.convert_to_percentage(query)
 
-    def top_overall_lure_and_color(self):
+        top_lures_by_states = FishingStats.convert_to_percentage(query_lures)
+        top_colors_by_states = FishingStats.convert_to_percentage(query_colors)
+        return top_lures_by_states, top_colors_by_states
+
+    def top_overall_lures_and_colors(self):
         """method to return overall lures and colors stats
 
         Returns:
@@ -42,13 +45,13 @@ class FishingStats():
                     {lure_name: percentage},
                     {color_name: percentage}
         """
-        top_lure = FishingStats.convert_to_percentage(
+        top_lures = FishingStats.convert_to_percentage(
             Lure.objects.annotate(num=Count("catchfish")).order_by("-num")
         )
-        top_color = FishingStats.convert_to_percentage(
+        top_colors = FishingStats.convert_to_percentage(
             Color.objects.annotate(num=Count("catchfish")).order_by("-num")
         )
-        return top_lure, top_color
+        return top_lures, top_colors
 
     @staticmethod
     def convert_to_percentage(query_set):
