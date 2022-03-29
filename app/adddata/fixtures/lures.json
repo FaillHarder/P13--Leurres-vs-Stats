@@ -61,5 +61,54 @@
             "name": "finesse",
             "description": "Un leurre de type finess est un leurre souple, généralement assez long et fin, qui ne possède pas un paddle perpendiculaire au leurre. Il possède généralement une queue en V ou une queue droite"
         }
+    },
+    {
+        "model": "adddata.skystate",
+        "pk": 1,
+        "fields": {
+            "name": "ensoleillé"
+        }
+    },
+    {
+        "model": "adddata.skystate",
+        "pk": 2,
+        "fields": {
+            "name": "blanc"
+        }
+    },
+    {
+        "model": "adddata.skystate",
+        "pk": 3,
+        "fields": {
+            "name": "gris"
+        }
+    },
+    {
+        "model": "adddata.skystate",
+        "pk": 4,
+        "fields": {
+            "name": "nuit"
+        }
+    },
+    {
+        "model": "adddata.skystate",
+        "pk": 5,
+        "fields": {
+            "name": "pluvieux"
+        }
+    },
+    {
+        "model": "adddata.waterstate",
+        "pk": 1,
+        "fields": {
+            "name": "clair"
+        }
+    },
+    {
+        "model": "adddata.waterstate",
+        "pk": 2,
+        "fields": {
+            "name": "trouble"
+        }
     }
 ]
