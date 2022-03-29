@@ -9,33 +9,33 @@ class FishingStats():
         """Method to return lures stats compared with sky and water
 
         Args:
-            sky_state (str): models.CatchFisht.sky_state choice
-            water_state (str): models.CatchFisht.water_state choice
+            sky_state (str): models.SkyState obj.name
+            water_state (str): models.WaterState obj.name
 
         Returns:
-            dict:
+            queryset:
                 - key = name (lure)
                 - value = percentage
         """
         query_lures = Lure.objects.annotate(
             num=Count(
                 "catchfish",
-                filter=Q(catchfish__sky_state=sky_state)
-                & Q(catchfish__water_state=water_state)
+                filter=Q(catchfish__sky_state__name=sky_state)
+                & Q(catchfish__water_state__name=water_state)
                 )
             ).order_by("-num")
 
         query_colors = Color.objects.annotate(
             num=Count(
                 "catchfish",
-                filter=Q(catchfish__sky_state=sky_state)
-                & Q(catchfish__water_state=water_state)
+                filter=Q(catchfish__sky_state__name=sky_state)
+                & Q(catchfish__water_state__name=water_state)
                 )
             ).order_by("-num")
 
-        top_lures_by_states = FishingStats.convert_to_percentage(query_lures)
-        top_colors_by_states = FishingStats.convert_to_percentage(query_colors)
-        return top_lures_by_states, top_colors_by_states
+        top_lures = FishingStats.convert_to_percentage(query_lures, sky_state, water_state)
+        top_colors = FishingStats.convert_to_percentage(query_colors, sky_state, water_state)
+        return top_lures, top_colors
 
     def top_overall_lures_and_colors(self):
         """method to return overall lures and colors stats
@@ -54,8 +54,8 @@ class FishingStats():
         return top_lures, top_colors
 
     @staticmethod
-    def convert_to_percentage(query_set):
-        """Method to convert queryset integer value to percentage
+    def convert_to_percentage(query_set, sky_state=None, water_state=None):
+        """Method to convert queryset num value to percentage
 
         Args:
             query_set (queryset): return from :
@@ -64,14 +64,19 @@ class FishingStats():
                 - top_overall_lure_and_color
 
         Returns:
-            dict:
-                - key = name (lure or color)
-                - value = percentage
+            queryset:
+                - query.num = num percentage
         """
         catchfish = CatchFish.objects.all()
-        catchfish_len = len(catchfish)
-        query_set_len = len(query_set)
-        dict_percent = {}
-        for i in range(0, query_set_len):
-            dict_percent[f"{query_set[i]}"] = round(query_set[i].num*100/catchfish_len, 2)
-        return dict_percent
+        if sky_state and water_state:
+            catchfish_len = len(
+                    catchfish.filter(sky_state__name=sky_state, water_state__name=water_state)
+                )
+        else:
+            catchfish_len = len(catchfish)
+        if catchfish_len > 0:
+            for obj in query_set:
+                obj.num = round(obj.num * 100 / catchfish_len, 2)
+            return query_set
+        else:
+            return query_set
