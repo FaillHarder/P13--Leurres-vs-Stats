@@ -13,8 +13,8 @@ class TestAdddataViews(TestCase):
 
         self.lure = models.Lure.objects.create(name="stickbait")
         self.color_lure = models.Color.objects.create(name="ayu")
-        self.sky_state = "Ensoleillé"
-        self.water_state = "Trouble"
+        self.sky_state = models.SkyState.objects.create(name="ensoleillé")
+        self.water_state = models.WaterState.objects.create(name="clair")
 
         self.identifier = {
             'email': 'testemail@gmail.com',
@@ -42,8 +42,8 @@ class TestAdddataViews(TestCase):
         data = {
             "lure": self.lure.pk,
             "color_lure": self.color_lure.pk,
-            "sky_state": self.sky_state,
-            "water_state": self.water_state
+            "sky_state": self.sky_state.pk,
+            "water_state": self.water_state.pk
         }
         response = self.client.post(self.url_catchfish, data)
         self.assertEqual(response.status_code, 302)

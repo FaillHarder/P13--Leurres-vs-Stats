@@ -5,12 +5,12 @@
 
 
 <div class="container">
-    <h1 class="text-white text-center m-5">Statistiques</h1>
-    <div class="container bg-light p-3 mb-3">
-        <h4 class="text-center">Classement global des leurres</h4>
-        <table class="table">
+    <h1 class="text-white text-center text-white m-5">Statistiques</h1>
+    <div class="container bg-dark p-3 mb-3">
+        <h4 class="text-center text-white text-white">Classement global des leurres</h4>
+        <table class="table table-dark table-striped">
             <thead>
-                <tr class="table-success">
+                <tr>
                     <th scope="col">Top</th>
                     <th scope="col">Leurre</th>
                     <th scope="col">Efficacité</th>
@@ -18,22 +18,22 @@
             </thead>
         
             <tbody>
-                {% for key, value in top_overwall.0.items %}
-                    <tr class={% cycle 'table-primary' 'table-light' %}>
+                {% for obj in top_overwall.0 %}
+                    <tr>
                         <th scope="row">{{ forloop.counter }}</th>
-                        <td>{{ key|title }}</td>
-                        <td>{{ value }}%</td>
+                        <td>{{ obj.name|title }}</td>
+                        <td>{{ obj.num }}%</td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
 
-    <div class="container bg-light p-3 mb-3">
-        <h4 class="text-center">Classement global des couleurs</h4>
-        <table class="table">
+    <div class="container bg-dark p-3 mb-3">
+        <h4 class="text-center text-white">Classement global des couleurs</h4>
+        <table class="table table-dark table-striped">
             <thead>
-                <tr class="table-success">
+                <tr>
                     <th scope="col">Top</th>
                     <th scope="col">Couleur</th>
                     <th scope="col">Efficacité</th>
@@ -41,23 +41,24 @@
             </thead>
     
             <tbody>
-                {% for key, value in top_overwall.1.items %}
-                <tr class={% cycle 'table-primary' 'table-light' %}>
+                {% for obj in top_overwall.1 %}
+                <tr>
                     <th scope="row">{{ forloop.counter }}</th>
-                    <td>{{ key|title }}</td>
-                    <td>{{ value }}%</td>
+                    <td>{{ obj.name|title }}</td>
+                    <td>{{ obj.num }}%</td>
+                    <!-- <td><img src="{{ obj.image.url }}" alt=""></td> -->
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
 
-    {% for stats_list in top_by_choice %}
-    <div class="container bg-light">
-        <h4 class="text-center">{{ stats_list.0 }}</h4>
-        <table class="table">
+    {% for list in top_by_choice %}
+    <div class="container bg-dark">
+        <h4 class="text-center text-white">Classement par condition. Ciel: {{ list.0|title }}, Eau: {{ list.1|title }}</h4>
+        <table class="table table-dark table-striped">
             <thead>
-                <tr class="table-success">
+                <tr>
                     <th scope="col">Top</th>
                     <th scope="col">Leure</th>
                     <th scope="col">Efficacité</th>
@@ -65,17 +66,17 @@
             </thead>
 
             <tbody>
-                {% for key, value in stats_list.1.0.items %}
-                <tr class={% cycle 'table-primary' 'table-light' %}>
+                {% for obj in list.2.0 %}
+                <tr>
                     <th scope="row">{{ forloop.counter }}</th>
-                    <td>{{ key|title }}</td>
-                    <td>{{ value }}%</td>
+                    <td>{{ obj.name|title }}</td>
+                    <td>{{ obj.num }}%</td>
                 </tr>
                 {% endfor %}
             </tbody>
 
             <thead>
-                <tr class="table-success">
+                <tr>
                     <th scope="col">Top</th>
                     <th scope="col">Couleur</th>
                     <th scope="col">Efficacité</th>
@@ -83,11 +84,11 @@
             </thead>
                 
             <tbody>
-                {% for key, value in stats_list.1.1.items %}
-                <tr class={% cycle 'table-primary' 'table-light' %}>
+                {% for obj in list.2.1 %}
+                <tr>
                     <th scope="row">{{ forloop.counter }}</th>
-                    <td>{{ key|title }}</td>
-                    <td>{{ value }}%</td>
+                    <td>{{ obj.name|title }}</td>
+                    <td>{{ obj.num }}%</td>
                 </tr>
                 {% endfor %}
             </tbody>
