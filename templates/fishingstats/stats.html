@@ -5,15 +5,15 @@
 
 
 <div class="container">
-    <h1 class="text-white text-center text-white m-5">Statistiques</h1>
-    <div class="container bg-dark p-3 mb-3">
-        <h4 class="text-center text-white text-white">Classement global des leurres</h4>
+    <h1 class="title text-white text-center m-5">Statistiques global</h1>
+    <div class="container stats bg-dark mb-3">
+        <h4 class="text-center text-white text-white">Classement des leurres</h4>
         <table class="table table-dark table-striped">
             <thead>
                 <tr>
-                    <th scope="col">Top</th>
-                    <th scope="col">Leurre</th>
-                    <th scope="col">Efficacité</th>
+                    <th class="text-primary" scope="col">Top</th>
+                    <th class="text-primary" scope="col">Leurre</th>
+                    <th class="text-primary" scope="col">Efficacité</th>
                 </tr>
             </thead>
         
@@ -29,14 +29,15 @@
         </table>
     </div>
 
-    <div class="container bg-dark p-3 mb-3">
-        <h4 class="text-center text-white">Classement global des couleurs</h4>
+    <div class="container stats bg-dark mb-3">
+        <h4 class="text-center text-white">Classement des couleurs</h4>
         <table class="table table-dark table-striped">
             <thead>
                 <tr>
-                    <th scope="col">Top</th>
-                    <th scope="col">Couleur</th>
-                    <th scope="col">Efficacité</th>
+                    <th class="text-primary" scope="col">Top</th>
+                    <th class="text-primary" scope="col">Couleur</th>
+                    <th class="text-primary" scope="col">image</th>
+                    <th class="text-primary" scope="col">Efficacité</th>
                 </tr>
             </thead>
     
@@ -45,23 +46,28 @@
                 <tr>
                     <th scope="row">{{ forloop.counter }}</th>
                     <td>{{ obj.name|title }}</td>
+                    <td><img src="{{ obj.image.url }}" alt="{{ obj.name }}"></td>
                     <td>{{ obj.num }}%</td>
-                    <!-- <td><img src="{{ obj.image.url }}" alt=""></td> -->
+                    
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
 
+    <h1 class="title text-white text-center m-5">Statistiques par condition</h1>
     {% for list in top_by_choice %}
-    <div class="container bg-dark">
-        <h4 class="text-center text-white">Classement par condition. Ciel: {{ list.0|title }}, Eau: {{ list.1|title }}</h4>
-        <table class="table table-dark table-striped">
+    <div class="container stats bg-dark mb-3">
+        <h4 class="text-center text-white">Ciel : {{ list.0|title }} / Eau : {{ list.1|title }}</h4>
+        <button class="btn btn-primary btn-display">
+            <ion-icon name="arrow-down-outline"></ion-icon>
+        </ion-icon></button>
+        <table class="table table-dark table-striped table-display d-none">
             <thead>
                 <tr>
-                    <th scope="col">Top</th>
-                    <th scope="col">Leure</th>
-                    <th scope="col">Efficacité</th>
+                    <th class="text-primary" scope="col">Top</th>
+                    <th class="text-primary" scope="col">Leure</th>
+                    <th class="text-primary" scope="col">Efficacité</th>
                 </tr>
             </thead>
 
@@ -77,9 +83,9 @@
 
             <thead>
                 <tr>
-                    <th scope="col">Top</th>
-                    <th scope="col">Couleur</th>
-                    <th scope="col">Efficacité</th>
+                    <th class="text-primary" scope="col">Top</th>
+                    <th class="text-primary" scope="col">Couleur</th>
+                    <th class="text-primary" scope="col">Efficacité</th>
                 </tr>
             </thead>
                 
@@ -96,5 +102,22 @@
     </div>
     {% endfor %}
 </div>
+
+<script>
+    let buttonList = document.querySelectorAll(".btn-display");
+    buttonList.forEach((item) =>
+        item.addEventListener("click", function() {
+            let table = item.nextElementSibling;
+            let icon = item.firstChild.nextSibling;
+            if (table.classList.contains("d-none")) {
+                table.classList.remove("d-none");
+                icon.setAttribute("name", "close-outline");
+            } else {
+                table.classList.add("d-none");
+                icon.setAttribute("name", "arrow-down-outline");
+            }
+        })
+    )
+</script>
 
 {% endblock content %}
