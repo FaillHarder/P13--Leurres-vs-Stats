@@ -74,6 +74,7 @@ class FishingStats():
                 )
         else:
             catchfish_len = len(catchfish)
+
         if catchfish_len > 0:
             for obj in query_set:
                 obj.num = round(obj.num * 100 / catchfish_len, 2)
