@@ -133,3 +133,9 @@ dmypy.json
 
 # media
 media/
+
+# env docker
+.env.dev
+.env.dev.db
+.env.prod
+.env.prod.db
