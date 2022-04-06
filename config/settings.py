@@ -31,8 +31,9 @@ SECRET_KEY = str(os.getenv("SECRET_KEY"))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.getenv("DEBUG", default=0))
 
-ALLOWED_HOSTS = ["localhost"]
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split()
 
+CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS").split()
 # Application definition
 
 INSTALLED_APPS = [
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     'app.usermanager.apps.UsermanagerConfig',
     'app.adddata.apps.AdddataConfig',
     'app.fishingstats.apps.FishingstatsConfig',
+    'app.search.apps.SearchConfig',
 ]
 
 MIDDLEWARE = [
@@ -145,7 +147,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_ROOT = BASE_DIR / str(os.getenv("MEDIA_ROOT"))
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
