@@ -25,7 +25,8 @@
         </div>
 
         <div class="form-group">
-            <button class="btn btn-primary" type="submit" name="submit-login">Valider</button>
+            <input type="hidden" name="next" value="{{ next }}" />
+            <button class="btn btn-primary" value="login" type="submit" name="submit-login">Valider</button>
             <p>Pas encore membre? <a href="{% url 'registrer' %}">Créer un compte</a></p>
         </div>
     </form>

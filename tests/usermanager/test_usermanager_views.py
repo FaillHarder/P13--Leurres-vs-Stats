@@ -58,7 +58,7 @@ class TestUsermanagerViews(TestCase):
         response = self.client.get(self.url_login_user)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Se connecter")
-        self.assertTemplateUsed(response, "usermanager/login.html")
+        self.assertTemplateUsed(response, "usermanager/registration/login.html")
 
     def test_post_login_user_view(self):
         response = self.client.post(self.url_login_user, self.user2)

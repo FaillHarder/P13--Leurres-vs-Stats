@@ -1,8 +1,9 @@
-from . import forms
-
 from django.conf import settings
 from django.contrib.auth import login, logout, authenticate
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
+
+from . import forms
 
 
 def create_user(request):
@@ -28,11 +29,16 @@ def login_user(request):
             )
             if user:
                 login(request, user)
-                return redirect('index')
+                return HttpResponseRedirect(
+                    request.GET.get(
+                        'next',
+                        settings.LOGIN_REDIRECT_URL
+                    )
+                )
             else:
                 message = "Email ou mot de passe invalide."
                 form = forms.LoginForm()
-    return render(request, 'usermanager/login.html', context={"form": form, "message": message})
+    return render(request, 'usermanager/registration/login.html', context={"form": form, "message": message})
 
 
 def logout_user(request):

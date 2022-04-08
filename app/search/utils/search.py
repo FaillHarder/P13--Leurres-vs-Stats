@@ -4,6 +4,18 @@ from app.adddata.models import Lure, Color
 
 
 def search_top3(skystate_id, waterstate_id):
+    """Function take id argument
+
+    Args:
+        skystate_id (_type_): _description_
+        waterstate_id (_type_): _description_
+
+    Returns:
+        tuple:
+            - top3_list lures
+            - top3_list colors
+
+    """
     top3_lure = []
     top3_color = []
     lures = Lure.objects.annotate(
