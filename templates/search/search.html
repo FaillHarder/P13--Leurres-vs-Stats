@@ -2,64 +2,38 @@
 {% load static %}
 {% block title %}Search - {% endblock title %}
 {% block content %}
-<div class="container">
-    <div class="container">
-        <div class="title m-5">
-            <h5>Tu as envie de gagner du temps, tu es sur le point de pécher et tu veux connaitre le top3 des meilleurs leurres et couleurs?</h5>
-            Renseigne le formulaire est laisse la magie opérer
-        </div>
+
+<div class="container search-container">
+    <div class="title text-center text-white m-5">
+        <h3 class="text-primary">Vous êtes à la pêche?</h3>
+        Gagnez du temps avec la recherche par condition
     </div>
-    
-    <div class="container logform">
+    <div class="container logform mb-3">
         <form method="POST">
             {% csrf_token %}
-            <div class="title">
-                Le Top 3
+            <div class="title mb-5">
+                Search top3
             </div>
-            <div class="form-group">
-                <label class="text-white" for="skystate">Etat du ciel</label>
-                {{ form.skystate}}
+            <div class="row">
+                <div class="col-auto mb-5">
+                    <label class="text-white" for="skystate">Etat du ciel :</label>
+                    {{ form.skystate}}
+                </div>
+                <div class="col-auto mb-5">
+                    <label class="text-white" for="waterstate">Etat de l'eau :</label>
+                    {{ form.waterstate }}
+                </div>
             </div>
-            <div class="form-group">
-                <label class="text-white" for="waterstate">Etat de l'eau</label>
-                {{ form.waterstate }}
-            </div>
-            <button type="submit" class="btn btn-primary" id="top3-submit">Valider</button>
+            
+            
+            <button type="submit" class="btn btn-primary col-4 m-3" id="top3-submit">Valider</button>
         </form>
-
+        <div class="loader d-none">
+            <div class="ring"></div>
+            <span>loading...</span>
+        </div>
     </div>
+    <div class="container" id="result" style="max-width: 660px;"></div>
 </div>
-<!-- <script>
-    const top3Submit = document.getElementById('top3-submit')
 
-    // requete ajax
-    async function ajaxRequest(url, data, csrftoken) {
-        let requestData = await fetch(url, {
-            method: "POST",
-            body: data,
-            headers: {
-                'X-CSRFToken': csrftoken
-            }
-        });
-        let jsonData = await requestData.json()
-        return jsonData
-    }
-
-    top3Submit.addEventListener('click', async function(e) {
-        e.preventDefault();
-        let formData = new FormData();
-        let csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-        let skystate = document.getElementById("id_skystate");
-        let waterstate = document.getElementById("id_waterstate");
-        
-
-        formData.append("skystate", skystate.value);
-        formData.append("waterstate", waterstate.value);
-
-        let result = await ajaxRequest("{% url 'search' %}", formData, csrfToken);
-        console.log(result["result"][0])
-        console.log(result["result"][1])
-
-    })
-</script> -->
 {% endblock content %}
