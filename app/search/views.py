@@ -15,7 +15,6 @@ def search(request):
             skystate_id = request.POST.get("skystate")
             waterstate_id = request.POST.get("waterstate")
             result = search_top3(skystate_id, waterstate_id)
-
             return JsonResponse({"lures": result[0], "colors": result[1]})
         else:
             return render(request, "search/search.html", {"form": form})

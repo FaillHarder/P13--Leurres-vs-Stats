@@ -35,8 +35,8 @@ def search_top3(skystate_id, waterstate_id):
             ).order_by("-num").filter(num__gt=0)[:3]
 
     for lure in lures:
-        top3_lure.append(lure.name)
+        top3_lure.append(lure.name.title())
     for color in colors:
-        top3_color.append([color.name, f"{color.image}"])
+        top3_color.append([color.name.title(), f"{color.image}"])
 
     return top3_lure, top3_color

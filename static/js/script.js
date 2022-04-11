@@ -31,11 +31,9 @@ buttonList.forEach((item) =>
 // search (template search)
 const top3Submit = document.getElementById('top3-submit');
 const resultDiv = document.getElementById('result');
-const tableClassList = ["table", "table-dark", "table-striped"];
 const noResultClassList = ["title", "text-center", "text-white", "m-5"]
 const columnLureList = ['Top', 'Leurre'];
 const columnColorList = ['Top', 'Couleur', 'Image'];
-
 
 // requete ajax
 async function ajaxRequest(url, data, csrftoken) {
@@ -66,8 +64,8 @@ top3Submit.addEventListener('click', async function(e) {
 
     let result = await ajaxRequest("search", formData, csrfToken);
     if (result["lures"].length > 0) {
-        displayTableLure(columnLureList, result["lures"])
-        displayTableColor(columnColorList, result["colors"])
+        displayTableLure(resultDiv, result["lures"])
+        displayTableColor(resultDiv, result["colors"])
     } else {
         displayNoResult(noResultClassList);
     };
@@ -78,81 +76,6 @@ function displayNoResult(noResultClassList) {
     let newDiv = createElement("div", noResultClassList)
     newDiv.innerHTML += "Aucun résultat"
     resultDiv.appendChild(newDiv);
-}
-
-function displayTableLure(columnList, lureList) {
-    const table = createElement("table", tableClassList)
-    const thead = createThead(columnList);
-    const tbBody = createTrLure(lureList);
-    table.append(thead, tbBody);
-    resultDiv.appendChild(table);
-}
-
-function displayTableColor(columnList, colorlist) {
-    const table = createElement("table", tableClassList)
-    const thead = createThead(columnList);
-    const tbBody = createTrColor(colorlist);
-    table.append(thead, tbBody);
-    resultDiv.appendChild(table);
-}
-
-function createTrLure(elementlist) {
-    const tbody = createElement("tbody");
-    elementlist.forEach(element => {
-        const tr = createElement("tr");
-        const th = createElement("th");
-        const td = createElement("td");
-        th.setAttribute("scope", "row");
-        th.textContent = (elementlist.indexOf(element) + 1);
-        td.textContent = element;
-        tr.append(th, td);
-        tbody.appendChild(tr);
-    });
-    return tbody
-}
-
-function createTrColor(elementlist) {
-    const tbody = createElement("tbody");
-    elementlist.forEach(element => {
-        const tr = createElement("tr");
-        const th = createElement("th");
-        const td = createElement("td");
-        const td2 = createElement("td");
-        const img = createElement("img");
-        img.setAttribute("src", "media/".concat(element[1]));
-        img.setAttribute("alt", element[0]);
-        th.setAttribute("scope", "row");
-        th.textContent = (elementlist.indexOf(element) + 1);
-        td.textContent = element[0];
-        td2.appendChild(img);
-        tr.append(th, td, td2);
-        tbody.appendChild(tr);
-    });
-    return tbody
-}
-
-function createThead(thList) {
-    const thClassList = ["text-primary"]
-    const thead = createElement("thead");
-    const tr = createElement("tr");
-    thList.forEach(element => {
-        const th = createElement("th", thClassList)
-        th.setAttribute("scope", "col")
-        th.textContent = element
-        tr.appendChild(th)
-    });
-    thead.appendChild(tr)
-    return thead
-}
-
-function createElement(type, classlist) {
-    let newElement = document.createElement(type);
-    if (classlist) {
-        newElement.classList.add(...classlist);
-        return newElement;
-    } else {
-        return newElement;
-    }
 }
 
 function displayLoader() {
@@ -177,6 +100,89 @@ function clearResultDiv() {
             resultDiv.removeChild(resultDiv.firstChild)
         }
     }
+}
+
+function displayTableLure(div, data) {
+    const thead = createThead(columnLureList)
+    const tbody = createTbodyLure(data)
+    const table =  `
+    <table class="table table-dark table-striped">
+        ${thead}
+        ${tbody}
+    </table>
+    `
+    div.innerHTML += table
+}
+
+function displayTableColor(div, data) {
+    const thead = createThead(columnColorList)
+    const tbody = createTbodyColor(data)
+    const table =  `
+    <table class="table table-dark table-striped">
+        ${thead}
+        ${tbody}
+    </table>
+    `
+    div.innerHTML += table
+}
+
+function createTbodyLure(trList) {
+    let tr = "";
+    for (let i = 0; i < trList.length; i++) {
+        const newTr = `
+            <tr>
+                <th scope="row">${i+1}</th>
+                <td>${trList[i]}</td>
+            </tr>
+        `
+        tr += newTr
+    }
+    const tbody = `
+        <tbody>
+            ${tr}
+        </tbody>
+    `
+    return tbody
+}
+
+function createTbodyColor(trList) {
+    let tr = "";
+    for (let i = 0; i < trList.length; i++) {
+        const newTr = `
+            <tr>
+                <th scope="row">${i+1}</th>
+                <td>${trList[i][0]}</td>
+                <td>
+                    <img src="media/${trList[i][1]}" alt="${trList[i][0]}">
+                </td>
+            </tr>
+        `
+        tr += newTr
+    }
+    const tbody = `
+        <tbody>
+            ${tr}
+        </tbody>
+    `
+    return tbody
+}
+
+function createThead(thList) {
+    let th = "";
+    for (let i = 0; i < thList.length; i++) {
+        const newTh = `
+            <th class="text-primary" scope="col">${thList[i]}</th>
+        `
+        th += newTh
+    }
+    const thead = `
+        <thead>
+            <tr>
+                ${th}
+            </tr>
+        </thead>
+    `
+    return thead
 }
 
 // end search
