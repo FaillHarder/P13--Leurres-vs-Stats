@@ -55,10 +55,10 @@ class TestAdddataViews(TestCase):
         catch_fish.fisherman = self.user
         result = models.CatchFish.objects.count()
         self.assertEqual(result, 1)
-        catch_fish_obj = models.CatchFish.objects.all()
+        catch_fish_obj = models.CatchFish.objects.first()
         self.assertTrue(
             catch_fish_obj.__str__,
-            "(stickbait/ayu) (Ciel Ensoleillé/Eau Trouble). Pécheur : testemail@gmail.com>"
+            "(Stickbait/Ayu) (Ciel Ensoleillé/Eau Clair). Pécheur : testemail@gmail.com"
         )
 
     def test_get_catchfish_view_with_anonymoususer(self):

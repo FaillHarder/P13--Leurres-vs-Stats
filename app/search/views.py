@@ -10,12 +10,8 @@ from app.search.utils.search import search_top3
 def search(request):
     form = forms.SearchForm()
     if request.method == "POST":
-        form = forms.SearchForm(request.POST)
-        if form.is_valid():
-            skystate_id = request.POST.get("skystate")
-            waterstate_id = request.POST.get("waterstate")
-            result = search_top3(skystate_id, waterstate_id)
-            return JsonResponse({"lures": result[0], "colors": result[1]})
-        else:
-            return render(request, "search/search.html", {"form": form})
+        skystate_id = request.POST.get("skystate")
+        waterstate_id = request.POST.get("waterstate")
+        result = search_top3(skystate_id, waterstate_id)
+        return JsonResponse({"lures": result[0], "colors": result[1]})
     return render(request, "search/search.html", {"form": form})
