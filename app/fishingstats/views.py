@@ -1,16 +1,19 @@
 from django.shortcuts import render
 
-from app.fishingstats.create_stats import FishingStats
+from app.fishingstats.create_stats import ChoicesTop, FishingStats
 from app.fishingstats.utils.generate_stats_choices import AllStatsByChoices
 
 
 # Create your views here.
 def stats(request):
     context = {}
-    top_overwall = FishingStats().top_overall_lures_and_colors()
-    top_by_choice = AllStatsByChoices().generate_all()
 
-    context["top_overwall"] = top_overwall
-    context["top_by_choice"] = top_by_choice
+    top_overwall_lure = FishingStats().top_overall(ChoicesTop.LURE)
+    top_overwall_color = FishingStats().top_overall(ChoicesTop.COLOR)
+    top_lure_color_by_states = AllStatsByChoices().generate_all()
+
+    context["top_overwall_lure"] = top_overwall_lure
+    context["top_overwall_color"] = top_overwall_color
+    context["top_lure_color_by_states"] = top_lure_color_by_states
 
     return render(request, 'fishingstats/stats.html', context)

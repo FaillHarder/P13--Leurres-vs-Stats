@@ -30,6 +30,7 @@ buttonList.forEach((item) =>
 
 // search (template search)
 const top3Submit = document.getElementById('top3-submit');
+const searchForm = document.getElementById('search-form');
 const resultDiv = document.getElementById('result');
 const noResultClassList = ["title", "text-center", "text-white", "m-5"]
 const columnLureList = ['Top', 'Leurre'];
@@ -51,21 +52,17 @@ async function ajaxRequest(url, data, csrftoken) {
 top3Submit.addEventListener('click', async function(e) {
     e.preventDefault();
     top3Submit.disabled = true;
-    let formData = new FormData();
-    let csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-    let skystate = document.getElementById("id_skystate");
-    let waterstate = document.getElementById("id_waterstate");
-
-    formData.append("skystate", skystate.value);
-    formData.append("waterstate", waterstate.value);
+    let formData = new FormData(searchForm);
+    let csrfToken = searchForm['csrfmiddlewaretoken'].value;
+    // let csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
     clearResultDiv();
     displayLoader();
     await delay(20);
 
     let result = await ajaxRequest("search", formData, csrfToken);
     if (result["lures"].length > 0) {
-        displayTableLure(resultDiv, result["lures"])
-        displayTableColor(resultDiv, result["colors"])
+        displayTableLure(resultDiv, result["lures"]);
+        displayTableColor(resultDiv, result["colors"]);
     } else {
         displayNoResult(noResultClassList);
     };
@@ -73,18 +70,19 @@ top3Submit.addEventListener('click', async function(e) {
 })
 
 function displayNoResult(noResultClassList) {
-    let newDiv = createElement("div", noResultClassList)
-    newDiv.innerHTML += "Aucun résultat"
+    let newDiv = document.createElement("div");
+    newDiv.classList.add(...noResultClassList)
+    newDiv.innerHTML += "Aucun résultat";
     resultDiv.appendChild(newDiv);
 }
 
 function displayLoader() {
     const loader = document.querySelector(".loader");
     if (loader.classList.contains('d-none')) {
-        loader.classList.replace("d-none", "d-flex")
+        loader.classList.replace("d-none", "d-flex");
         setTimeout(displayLoader, 2000)
     } else if (loader.classList.contains('d-flex')){
-        loader.classList.replace("d-flex", "d-none")
+        loader.classList.replace("d-flex", "d-none");
     }
 }
 
@@ -97,14 +95,14 @@ function delay(n){
 function clearResultDiv() {
     if (resultDiv.hasChildNodes()) {
         while(resultDiv.firstChild) {
-            resultDiv.removeChild(resultDiv.firstChild)
+            resultDiv.removeChild(resultDiv.firstChild);
         }
     }
 }
 
 function displayTableLure(div, data) {
-    const thead = createThead(columnLureList)
-    const tbody = createTbodyLure(data)
+    const thead = createThead(columnLureList);
+    const tbody = createTbodyLure(data);
     const table =  `
     <table class="table table-dark table-striped">
         ${thead}
@@ -115,8 +113,8 @@ function displayTableLure(div, data) {
 }
 
 function displayTableColor(div, data) {
-    const thead = createThead(columnColorList)
-    const tbody = createTbodyColor(data)
+    const thead = createThead(columnColorList);
+    const tbody = createTbodyColor(data);
     const table =  `
     <table class="table table-dark table-striped">
         ${thead}

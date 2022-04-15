@@ -1,16 +1,14 @@
-from django.contrib.auth.models import AnonymousUser
+from django.contrib.auth import get_user_model
 from django.urls import reverse
-from django.test import TestCase, Client, RequestFactory
+from django.test import TestCase, Client
 
-from app.search import views
-from app.usermanager import models
+from app.adddata.models import SkyState, WaterState
 
 
 class TestSearchViews(TestCase):
 
     def setUp(self):
         self.client = Client()
-        self.factory = RequestFactory()
 
         self.url_search = reverse("search")
 
@@ -20,18 +18,32 @@ class TestSearchViews(TestCase):
             'password': 'password1'
         }
 
-        models.User.objects.create_user(**self.user1)
-        self.user = models.User.objects.get(email=self.user1["email"])
+        get_user_model().objects.create_user(**self.user1)
+        self.user = get_user_model().objects.get(email=self.user1["email"])
+
+        SkyState.objects.create(name="ensoleillé")
+        self.sky_state = SkyState.objects.first()
+        WaterState.objects.create(name="clair")
+        self.water_state = WaterState.objects.first()
         return super().setUp()
 
     def test_get_search_view_with_anonymous_user(self):
-        request = self.factory.get(self.url_search)
-        request.user = AnonymousUser()
-        response = views.search(request)
+        response = self.client.get(self.url_search)
         self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, "/accounts/login/?next=/search")
 
     def test_get_search_view_with_user(self):
-        request = self.factory.get(self.url_search)
-        request.user = self.user
-        response = views.search(request)
+        self.client.force_login(user=self.user)
+        response = self.client.get(self.url_search)
+        self.assertContains(response, '<select name="skystate" id="id_skystate">')
+        self.assertContains(response, '<select name="waterstate" id="id_waterstate">')
+        self.assertEqual(response.status_code, 200)
+
+    def test_post_search_view(self):
+        data = {
+            "skystate": self.sky_state.pk,
+            "waterstate": self.water_state.pk
+        }
+        self.client.force_login(user=self.user)
+        response = self.client.post(self.url_search, data)
         self.assertEqual(response.status_code, 200)

@@ -1,6 +1,5 @@
-from django.db.models import Count, Q
-
-from app.adddata.models import Lure, Color
+from app.adddata.models import SkyState, WaterState
+from app.fishingstats.create_stats import ChoicesTop, FishingStats
 
 
 def search_top3(skystate_id, waterstate_id):
@@ -18,21 +17,20 @@ def search_top3(skystate_id, waterstate_id):
     """
     top3_lure = []
     top3_color = []
-    lures = Lure.objects.annotate(
-            num=Count(
-                "catchfish",
-                filter=Q(catchfish__sky_state__id=skystate_id)
-                & Q(catchfish__water_state__id=waterstate_id)
-                )
-            ).order_by("-num").filter(num__gt=0)[:3]
+    skystate = SkyState.objects.get(pk=skystate_id)
+    waterstate = WaterState.objects.get(pk=waterstate_id)
 
-    colors = Color.objects.annotate(
-            num=Count(
-                "catchfish",
-                filter=Q(catchfish__sky_state__id=skystate_id)
-                & Q(catchfish__water_state__id=waterstate_id)
-                )
-            ).order_by("-num").filter(num__gt=0)[:3]
+    lures = FishingStats().top_by_states(
+        ChoicesTop.LURE,
+        skystate.name,
+        waterstate.name
+    ).filter(num__gt=0)[:3]
+
+    colors = FishingStats().top_by_states(
+        ChoicesTop.COLOR,
+        skystate.name,
+        waterstate.name
+    ).filter(num__gt=0)[:3]
 
     for lure in lures:
         top3_lure.append(lure.name.title())

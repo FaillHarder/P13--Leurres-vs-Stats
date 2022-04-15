@@ -1,57 +1,71 @@
 from django.db.models import Count, Q
 
+from enum import Enum, auto
+
 from app.adddata.models import CatchFish, Lure, Color
+
+
+class ChoicesTop(Enum):
+    COLOR = auto()
+    LURE = auto()
 
 
 class FishingStats():
 
-    def top_lures_and_colors_by_states(self, sky_state, water_state):
-        """Method to return lures stats compared with sky and water
+    def top_by_states(self, choices_top: ChoicesTop, skystate: str, waterstate: str):
+        """Method allowing to have the percentage of effectiveness of the lures or
+        colors by state of the sky and the water compared to the Catchfish model
 
         Args:
-            sky_state (str): models.SkyState obj.name
-            water_state (str): models.WaterState obj.name
+            choices_top (ChoicesTop): COLOR or LURE
+            skystate (str): models.SkyState obj.name
+            waterstate (str): models.WaterState obj.name
 
         Returns:
-            queryset:
-                - key = name (lure)
-                - value = percentage
+            queryset with ChoicesTop.LURE parameter:
+                - obj.name, obj.num
+            queryset with ChoicesTop.COLOR parameter:
+                - obj.name, obj.image, obj.num
         """
-        query_lures = Lure.objects.annotate(
-            num=Count(
-                "catchfish",
-                filter=Q(catchfish__sky_state__name=sky_state)
-                & Q(catchfish__water_state__name=water_state)
-                )
-            ).order_by("-num")
+        if choices_top == ChoicesTop.LURE:
+            query_lures = Lure.objects.annotate(
+                num=Count(
+                    "catchfish",
+                    filter=Q(catchfish__sky_state__name=skystate)
+                    & Q(catchfish__water_state__name=waterstate)
+                    )
+                ).order_by("-num")
+            return self.convert_to_percentage(query_lures, skystate, waterstate)
 
-        query_colors = Color.objects.annotate(
-            num=Count(
-                "catchfish",
-                filter=Q(catchfish__sky_state__name=sky_state)
-                & Q(catchfish__water_state__name=water_state)
-                )
-            ).order_by("-num")
+        else:
+            query_colors = Color.objects.annotate(
+                num=Count(
+                    "catchfish",
+                    filter=Q(catchfish__sky_state__name=skystate)
+                    & Q(catchfish__water_state__name=waterstate)
+                    )
+                ).order_by("-num")
+        return self.convert_to_percentage(query_colors, skystate, waterstate)
 
-        top_lures = FishingStats.convert_to_percentage(query_lures, sky_state, water_state)
-        top_colors = FishingStats.convert_to_percentage(query_colors, sky_state, water_state)
-        return top_lures, top_colors
+    def top_overall(self, choices_top: ChoicesTop):
+        """Method allowing to have the global percentage of effectiveness
+        of the lures or colors compared to the Catchfish model
 
-    def top_overall_lures_and_colors(self):
-        """method to return overall lures and colors stats
+        Args:
+            choices_top (ChoicesTop): COLOR or LURE
 
         Returns:
-            tuple :
-                    {lure_name: percentage},
-                    {color_name: percentage}
+            queryset with ChoicesTop.LURE parameter:
+                - obj.name, obj.num
+            queryset with ChoicesTop.COLOR parameter:
+                - obj.name, obj.image, obj.num
         """
-        top_lures = FishingStats.convert_to_percentage(
-            Lure.objects.annotate(num=Count("catchfish")).order_by("-num")
-        )
-        top_colors = FishingStats.convert_to_percentage(
-            Color.objects.annotate(num=Count("catchfish")).order_by("-num")
-        )
-        return top_lures, top_colors
+        if choices_top == ChoicesTop.LURE:
+            query_lures = Lure.objects.annotate(num=Count("catchfish")).order_by("-num")
+            return self.convert_to_percentage(query_lures)
+        else:
+            query_colors = Color.objects.annotate(num=Count("catchfish")).order_by("-num")
+            return self.convert_to_percentage(query_colors)
 
     @staticmethod
     def convert_to_percentage(query_set, sky_state=None, water_state=None):
