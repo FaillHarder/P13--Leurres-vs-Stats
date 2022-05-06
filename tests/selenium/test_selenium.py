@@ -25,6 +25,14 @@ class SeleniumTest(LiveServerTestCase):
         self.login_path = "/accounts/login/"
         self.registrer_path = "/accounts/registrer"
 
+        self.email = "test@test.fr"
+        self.password = "monpassword85"
+
+        self.search_path = "/search"
+        self.stats_path = "/stats"
+        self.login_path = "/accounts/login/"
+        self.registrer_path = "/accounts/registrer"
+
         self.home_page_title = "Home - Leurres VS Stats"
         self.stats_page_title = "Stats - Leurres VS Stats"
         self.login_page_title = "Login - Leurres VS Stats"
