@@ -28,7 +28,7 @@
                 <div class="container navigation">
                     <ul class="d-flex p-0 justify-content-around list-unstyled">
                         <li class="list {% if request.path == index %}active{% endif %}">
-                            <a href="{{ index }}">
+                            <a name="home" href="{{ index }}">
                                 <span class="icon" id="myicon">
                                     <ion-icon name="home-outline"></ion-icon>
                                 </span>
@@ -36,7 +36,7 @@
                             </a>
                         </li>
                         <li class="list {% if request.path == stats %}active{% endif %}" id="stats-link">
-                            <a href="{{ stats }}">
+                            <a name="stats_link" href="{{ stats }}">
                                 <span class="icon">
                                     <ion-icon name="stats-chart-outline"></ion-icon>
                                 </span>
@@ -44,7 +44,7 @@
                             </a>
                         </li>
                         <li class="list {% if request.path == search %}active{% endif %}">
-                            <a href="{{ search }}">
+                            <a name="search" href="{{ search }}">
                                 <span class="icon icon2">
                                     <ion-icon name="search-outline"></ion-icon>
                                 </span>
@@ -53,7 +53,7 @@
                         </li>
                         {% if user.is_authenticated %}
                         <li class="list">
-                            <a href="#">
+                            <a name="profile" href="#">
                                 <span class="icon icon2">
                                     <ion-icon name="person-circle-outline"></ion-icon>
                                 </span>
@@ -61,7 +61,7 @@
                             </a>
                         </li>
                         <li class="list">
-                            <a href="{% url 'logout' %}">
+                            <a name="logout" href="{% url 'logout' %}">
                                 <span class="icon icon2">
                                     <ion-icon name="log-out-outline"></ion-icon>
                                 </span>
@@ -69,7 +69,7 @@
                         </li>
                         {% else %}
                         <li class="list">
-                            <a href="{% url 'login' %}">
+                            <a name="login" href="{% url 'login' %}">
                                 <span class="icon icon2">
                                     <ion-icon name="log-in-outline"></ion-icon>
                                 </span>
