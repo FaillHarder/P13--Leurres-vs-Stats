@@ -13,8 +13,8 @@ class SeleniumTest(LiveServerTestCase):
     def setUp(self):
         options = Options()
         options.headless = True
-        # self.driver = webdriver.Chrome(chrome_options=options)
-        self.driver = webdriver.Chrome("C:/Users/FailHarder/Desktop/chromedriver.exe", chrome_options=options)
+        self.driver = webdriver.Chrome(chrome_options=options)
+        # self.driver = webdriver.Chrome("C:/Users/FailHarder/Desktop/chromedriver.exe", chrome_options=options)
         self.wait = WebDriverWait(self.driver, 10)
 
         self.email = "test@test.fr"
