@@ -105,18 +105,23 @@ class SeleniumTest(LiveServerTestCase):
 
     def test_navbar_links(self):
         self.driver.get(self.live_server_url)
-        # test_stats_link
+        # test stats link
         self.wait.until(EC.element_to_be_clickable((By.NAME, "stats_link"))).click()
         self.assertTrue(self.driver.title, self.stats_page_title)
         self.assertTrue(self.driver.current_url, f"{self.live_server_url}{self.stats_path}")
-        # test_home_link
+        # test home link
         self.wait.until(EC.element_to_be_clickable((By.NAME, "home"))).click()
         self.assertTrue(self.driver.title, self.home_page_title)
         self.assertTrue(self.driver.current_url, self.live_server_url)
-        # test_login_link
+        # test login link
         self.wait.until(EC.element_to_be_clickable((By.NAME, "login"))).click()
         self.assertTrue(self.driver.title, self.login_page_title)
         self.assertTrue(self.driver.current_url, f"{self.live_server_url}{self.login_path}")
+        # test search link
+        self.wait.until(EC.element_to_be_clickable((By.NAME, "search"))).click()
+        # redirect login
+        self.wait.until(EC.url_changes(f"{self.live_server_url}{self.next}{self.search_path}"))
+        self.assertTrue(self.driver.current_url, f"{self.live_server_url}{self.next}{self.search_path}")
 
     def test_login_user_with_bad_credential(self):
         self.driver.get(f"{self.live_server_url}{self.login_path}")
@@ -147,7 +152,6 @@ class SeleniumTest(LiveServerTestCase):
         self.assertTrue(logout_icon.is_displayed())
 
     def test_login_user(self):
-        self.driver.get(f"{self.live_server_url}{self.registrer_path}")
         self.create_account()
         # logout user
         self.wait.until(EC.element_to_be_clickable((By.NAME, "logout"))).click()
@@ -158,17 +162,9 @@ class SeleniumTest(LiveServerTestCase):
         profiel_icon = self.wait.until(EC.element_to_be_clickable((By.NAME, "profile")))
         self.assertTrue(profiel_icon.is_displayed())
 
-    def test_search_link_redirect_login(self):
-        # create account and disconect user
+    def test_search_page(self):
         self.create_account()
-        self.wait.until(EC.element_to_be_clickable((By.NAME, "logout"))).click()
-        # start test
         self.wait.until(EC.element_to_be_clickable((By.NAME, "search"))).click()
-        # redirect login
-        self.wait.until(EC.url_changes(f"{self.live_server_url}{self.next}{self.search_path}"))
-        self.assertTrue(self.driver.current_url, f"{self.live_server_url}{self.next}{self.search_path}")
-        # login user
-        self.login_user()
         self.assertTrue(self.driver.current_url, f"{self.live_server_url}{self.search_path}")
         self.assertTrue(self.driver.title, self.search_page_title)
 
