@@ -103,31 +103,10 @@ class SeleniumTest(LiveServerTestCase):
         self.wait.until(EC.url_changes(self.github_url))
         self.assertTrue(self.driver.current_url, self.github_url)
 
-    def test_navbar_links(self):
-        self.driver.get(self.live_server_url)
-        # test stats link
-        self.wait.until(EC.element_to_be_clickable((By.NAME, "stats_link"))).click()
-        self.assertTrue(self.driver.title, self.stats_page_title)
-        self.assertTrue(self.driver.current_url, f"{self.live_server_url}{self.stats_path}")
-        # test home link
-        self.wait.until(EC.element_to_be_clickable((By.NAME, "home"))).click()
-        self.assertTrue(self.driver.title, self.home_page_title)
-        self.assertTrue(self.driver.current_url, self.live_server_url)
-        # test login link
-        self.wait.until(EC.element_to_be_clickable((By.NAME, "login"))).click()
-        self.assertTrue(self.driver.title, self.login_page_title)
-        self.assertTrue(self.driver.current_url, f"{self.live_server_url}{self.login_path}")
-        # test search link
-        self.wait.until(EC.element_to_be_clickable((By.NAME, "search"))).click()
-        # redirect login
-        self.wait.until(EC.url_changes(f"{self.live_server_url}{self.next}{self.search_path}"))
-        self.assertTrue(self.driver.current_url, f"{self.live_server_url}{self.next}{self.search_path}")
-
     def test_login_user_with_bad_credential(self):
         self.driver.get(f"{self.live_server_url}{self.login_path}")
         # this login user return error message because user is not created
         self.login_user()
-        # error message
         self.wait.until(EC.visibility_of_element_located((By.NAME, "error")))
         error_message = self.driver.find_element(By.NAME, "error")
         self.assertEqual(error_message.text, "Email ou mot de passe invalide.")

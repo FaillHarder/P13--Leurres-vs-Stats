@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}CatchFish - {% endblock title %}
+{% block content %}
+
+<div class="d-flex flex-column align-items-center m-5">
+    <div class="row">
+        <div class="card card-body d-flex bg-dark">
+            <h4 class="title text-center text-primary mb-5">Modifier votre profil</h4>
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="d-flex flex-row justify-content-between m-3">
+                    <label for="form" class="text-primary me-3">Pseudo</label>
+                    {{ form.pseudo }}                    
+                </div>
+                <div class="d-flex flex-row justify-content-between m-3">
+                    <label for="form" class="text-primary me-3">Nom</label>
+                    {{ form.name }}                    
+                </div>
+                <div class="d-flex flex-row justify-content-between m-3">
+                    <label for="form" class="text-primary me-3">Prénom</label>
+                    {{ form.first_name }}                    
+                </div>
+                <div class="d-flex flex-column m-3">
+                    <img src="{{ request.user.profile.avatar.url }}" style="width: 150px" alt="photo de profile">
+                    <label for="form" class="text-primary me-3">Avatar</label>
+                    <input class="d-flex flex-row justify-content-end" type="file" name="avatar" accept="image/*" id="id_avatar">
+                </div>
+                
+                <div class="d-flex flex-row justify-content-center m-3">
+                    <button class="btn btn-primary" type="submit">Valider</button>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</div>
+
+
+    
+
+
+{% endblock content %}
