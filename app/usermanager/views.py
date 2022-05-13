@@ -12,6 +12,10 @@ def create_user(request):
         form = forms.CreateUserForm(request.POST)
         if form.is_valid():
             user = form.save()
+            # create profile
+            # mail = form.cleaned_data['email']
+            # pseudo = mail[:mail.find('@')]
+            # Profile.objects.create(user=user, pseudo=pseudo)
             login(request, user)
             return redirect(settings.LOGIN_REDIRECT_URL)
     return render(request, "usermanager/registrer.html", {"form": form})

@@ -34,8 +34,8 @@ DEBUG = int(os.getenv("DEBUG", default=0))
 ALLOWED_HOSTS = ["localhost"]
 
 CSRF_TRUSTED_ORIGINS = ["http://localhost"]
-# Application definition
 
+# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'app.adddata.apps.AdddataConfig',
     'app.fishingstats.apps.FishingstatsConfig',
     'app.search.apps.SearchConfig',
+    'app.accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [

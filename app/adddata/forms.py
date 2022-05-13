@@ -1,6 +1,6 @@
-from django.forms import ModelForm
-
 from app.adddata.models import CatchFish
+
+from django.forms import ModelForm
 
 
 class CatchFishForm(ModelForm):

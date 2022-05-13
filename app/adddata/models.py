@@ -1,4 +1,4 @@
-from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.db import models
 
 
@@ -35,7 +35,7 @@ class WaterState(models.Model):
 
 class CatchFish(models.Model):
 
-    fisherman = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Pécheur")
+    fisherman = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, verbose_name="Pécheur")
     lure = models.ForeignKey(Lure, on_delete=models.CASCADE, verbose_name="Leurre")
     color_lure = models.ForeignKey(Color, on_delete=models.CASCADE, verbose_name="Couleur du leurre")
     sky_state = models.ForeignKey(SkyState, on_delete=models.CASCADE, verbose_name="Etat du ciel")
