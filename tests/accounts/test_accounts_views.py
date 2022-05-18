@@ -1,5 +1,4 @@
 from app.accounts import views
-from app.accounts.models import Profile
 from app.adddata.models import CatchFish, Lure, Color, SkyState, WaterState
 
 from django.contrib.auth import get_user_model
@@ -87,15 +86,14 @@ class TestAccountsViews(TestCase):
         self.assertContains(response, "Newpseudo")
         self.assertContains(response, "Nomtest")
         self.assertContains(response, "Prenomtest")
-        self.assertContains(response, 'img src="/media/avatar/test.png"')
+        self.assertContains(response, f'img src="/media/{self.user.profile.avatar}')
 
-        user_profile = Profile.objects.get(user=self.user)
-        self.assertTrue(user_profile.pseudo, "newpseudo")
-        self.assertTrue(user_profile.name, "nomtest")
-        self.assertTrue(user_profile.first_name, "prenomtest")
-        self.assertTrue(user_profile.avatar, "test.png")
+        self.assertTrue(self.user.profile.pseudo, "newpseudo")
+        self.assertTrue(self.user.profile.name, "nomtest")
+        self.assertTrue(self.user.profile.first_name, "prenomtest")
+        self.assertTrue(self.user.profile.avatar, f'{self.user.profile.avatar}')
         # check profile_photo size after upload
-        image_resize = Image.open("media/avatar/test.png")
+        image_resize = Image.open(f'media/{self.user.profile.avatar}')
         self.assertTrue(image_resize, (300, 300))
 
     def test_my_catch_view(self):
