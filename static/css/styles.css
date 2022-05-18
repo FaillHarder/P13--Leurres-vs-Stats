@@ -145,7 +145,7 @@ footer ul li a .icon:hover {
 
 /* form */
 
-.logform {
+.lvsform {
     margin: 40px auto;
     max-width: 500px;
     background-color: #343a40;
@@ -184,7 +184,7 @@ form .error ul li {
     justify-content: flex-end;
 }
 
-.logform form .form-group i {
+.lvsform form .form-group i {
     background: var(--main-color);
     color: #fff;
     font-size: 20px;
@@ -198,26 +198,26 @@ form .error ul li {
     border-radius: 8px 0 0 8px;
 }
 
-.logform form .form-group input {
+.lvsform form .form-group input {
     padding-left: 45px;
     border-radius: 9px 5px 5px 9px;
 }
 
-.logform form .form-group button {
+.lvsform form .form-group button {
     display: flex;
     justify-content: center;
 }
 
-.logform .errorlist {
+.lvsform .errorlist {
     margin-left: 0;
 }
 
-.logform .error {
+.lvsform .error {
     margin-left: 30px;
 }
 
 @media (max-width: 580px) {
-    .logform {
+    .lvsform {
         margin: auto;
         max-width: 300px;
     }
@@ -228,7 +228,7 @@ form .error ul li {
     .form-group {
         margin: 15px 10px 0px 10px;
     }
-    .logform form .form-group input {
+    .lvsform form .form-group input {
         height: 30px;
     }
     .form-group .text-white ul li {
@@ -237,7 +237,7 @@ form .error ul li {
 }
 
 @media (max-width: 300px) {
-    .logform {
+    .lvsform {
         margin-top: 5px;
         margin-bottom: 5px;
         max-width: 260px;
@@ -246,7 +246,7 @@ form .error ul li {
         margin-top: 10px;
         font-size: 18px;
     }
-    .logform form .form-group input {
+    .lvsform form .form-group input {
         font-size: 14px;
     }
 }
@@ -370,22 +370,12 @@ td img:hover {
     }
 }
 
-/* addcatchfish */
-.catchfish {
-    background-color: #0d6efd;
-}
-
-.catchfish .title {
-    font-size: xx-large;
-}
-/* end addcatchfish */
-
 /* search */
 
-.search-container .logform {
+.search-container .lvsform {
     position: relative;
 }
-.search-container .logform form {
+.search-container .lvsform form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -470,10 +460,10 @@ td img:hover {
     .search-container .title h3 {
         font-size: 1rem !important;
     }
-    .search-container .logform {
+    .search-container .lvsform {
         margin-bottom: 1rem !important;
     }
-    .search-container .logform .row .col-auto {
+    .search-container .lvsform .row .col-auto {
         margin-bottom: 1rem !important;
     }
 

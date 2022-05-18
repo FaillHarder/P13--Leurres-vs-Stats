@@ -13,5 +13,5 @@ def catchfish(request):
             catch_fish = form.save(commit=False)
             catch_fish.fisherman = request.user
             form.save()
-            return redirect('index')
+            return redirect('profile')
     return render(request, "adddata/catchfish.html", {"form": form})

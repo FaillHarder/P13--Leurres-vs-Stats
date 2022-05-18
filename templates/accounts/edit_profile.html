@@ -22,7 +22,11 @@
                     {{ form.first_name }}                    
                 </div>
                 <div class="d-flex flex-column m-3">
+                    {% if request.user.profile.avatar %}
                     <img src="{{ request.user.profile.avatar.url }}" style="width: 150px" alt="photo de profile">
+                    {% else %}
+                    <img src="{% static 'assets/images/profile/default_avatar.gif' %}" style="width: 150px" alt="photo de profil">
+                    {% endif %}
                     <label for="form" class="text-primary me-3">Avatar</label>
                     <input class="d-flex flex-row justify-content-end" type="file" name="avatar" accept="image/*" id="id_avatar">
                 </div>
