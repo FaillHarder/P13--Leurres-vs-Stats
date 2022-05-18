@@ -52,7 +52,7 @@
                             </a>
                         </li>
                         {% if user.is_authenticated %}
-                        <li class="list">
+                        <li class="list {% if request.path == profile %}active{% endif %}">
                             <a name="profile" href="{{ profile }}">
                                 <span class="icon icon2">
                                     <ion-icon name="person-circle-outline"></ion-icon>

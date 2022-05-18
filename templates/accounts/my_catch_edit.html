@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}MyCatch-Edit - {% endblock title %}
+{% block content %}
+
+<h1 class="text-center text-primary m-5">Modifier ma prise</h1>
+<div class="container lvsform">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label class="text-white" for="id_lure">Leurre : </label>
+            {{ form.lure }}
+        </div>
+        <div class="form-group">
+            <label class="text-white" for="id_color_lure">Couleur : </label>
+            {{ form.color_lure }}
+        </div>
+        <div class="form-group">
+            <label class="text-white" for="id_sky_state">Etat du ciel : </label>
+            {{ form.sky_state }}
+        </div>
+        <div class="form-group">
+            <label class="text-white" for="id_water_state">Etat de l'eau : </label>
+            {{ form.water_state }}
+        </div>
+        <button class="btn btn-primary m-3" type="submit">Modifier</button>
+    </form>
+</div>
+
+{% endblock content %}

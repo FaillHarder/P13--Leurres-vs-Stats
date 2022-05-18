@@ -1,29 +1,43 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}CatchFish - {% endblock title %}
+{% block title %}Profile - {% endblock title %}
 {% block content %}
 
 <h1 class="text-center text-primary mt-5">Mon profil</h1>
 <div class="container d-flex flex-row justify-content-center">
-    <div class="card bg-dark m-5" style="width: 20rem;">
-        <img src="{{ user_profile.avatar.url }}" class="card-img-top" alt="photo de profil">
-        <div class="card-body">
-            <h5 class="card-title text-center text-primary">{{ request.user.profile.pseudo|title }}</h5>
+    <div class="card bg-dark m-5" style="width: 300px;">
+        <div class="d-flex justify-content-center align-items-center">
+            {% if request.user.profile.avatar %}
+                <img src="{{ request.user.profile.avatar.url }}" class="card-img-top" style="max-width: 300px; max-height: 200px;" alt="photo de profil">
+            {% else %}
+                <img src="{% static 'assets/images/profile/default_avatar.gif' %}" class="card-img-top" alt="photo de profil">
+            {% endif %}
         </div>
-    
+
+        <div class="card-body">
+            <h5 class="card-title text-center text-primary">{{ user_profile.pseudo|title }}</h5>
+        </div>
         <ul class="bg-dark list-group list-group-flush">
             <li class="bg-dark text-white list-group-item">Nom : {{ user_profile.name|title }}</li>
             <li class="bg-dark text-white list-group-item">Prénom : {{ user_profile.first_name|title }}</li>
-            <li class="bg-dark text-white list-group-item">Nombre de prise : {{ count }}</li>
-        </ul>
-    
-        <div class="card-body">
-            <div>
+            <li class="bg-dark text-white list-group-item">
                 <a href="{% url 'edit_profile' %}" class="card-link text-white">Modifier votre profil</a>
-            </div>
+            </li>
+        </ul>
+
+        <div class="card-body">
+            <h5 class="card-title text-center text-primary">Gérer mes prises</h5>
         </div>
+        <ul class="bg-dark list-group list-group-flush">
+            <li class="bg-dark text-white list-group-item">Nombre de prise : {{ count }}</li>
+            <li class="bg-dark text-white list-group-item">
+                <a href="{% url 'my_catch' %}" class="card-link text-white">Afficher mes prises</a>
+            </li>
+            <li class="bg-dark text-white list-group-item">
+                <a href="{% url 'catchfish' %}" class="card-link text-white">Ajouter une prise</a>
+            </li>
+        </ul>
     </div>
 </div>
-
 
 {% endblock content %}
