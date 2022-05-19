@@ -132,7 +132,11 @@ dmypy.json
 .vscode/
 
 # media
-media/
+
+
+
+
+
 
 # env docker
 .env.dev
