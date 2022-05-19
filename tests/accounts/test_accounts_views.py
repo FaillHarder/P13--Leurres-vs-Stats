@@ -96,10 +96,8 @@ class TestAccountsViews(TestCase):
         # check profile_photo size after upload
         media_path = os.listdir(".")
         print(media_path)
-        # image_resize = Image.open(f'media/{self.user.profile.avatar}')
-        # self.assertTrue(image_resize.size, (600, 600))
-        print(self.user.profile.avatar.url)
-        print(self.user.profile.avatar)
+        image_resize = Image.open(f'media/{self.user.profile.avatar}')
+        self.assertTrue(image_resize.size, (600, 600))
 
     def test_my_catch_view(self):
         request = self.factory.get(self.url_my_catch)
