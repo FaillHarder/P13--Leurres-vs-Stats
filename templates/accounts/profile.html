@@ -15,13 +15,13 @@
         </div>
 
         <div class="card-body">
-            <h5 class="card-title text-center text-primary">{{ user_profile.pseudo|title }}</h5>
+            <h5 class="card-title text-center text-primary" name="pseudo">{{ user_profile.pseudo|title }}</h5>
         </div>
         <ul class="bg-dark list-group list-group-flush">
-            <li class="bg-dark text-white list-group-item">Nom : {{ user_profile.name|title }}</li>
-            <li class="bg-dark text-white list-group-item">Prénom : {{ user_profile.first_name|title }}</li>
+            <li class="bg-dark text-white list-group-item" name="name">Nom : {{ user_profile.name|title }}</li>
+            <li class="bg-dark text-white list-group-item" name="first_name">Prénom : {{ user_profile.first_name|title }}</li>
             <li class="bg-dark text-white list-group-item">
-                <a href="{% url 'edit_profile' %}" class="card-link text-white">Modifier votre profil</a>
+                <a href="{% url 'edit_profile' %}" class="card-link text-white" name="edit_profile">Modifier votre profil</a>
             </li>
         </ul>
 
@@ -29,7 +29,7 @@
             <h5 class="card-title text-center text-primary">Gérer mes prises</h5>
         </div>
         <ul class="bg-dark list-group list-group-flush">
-            <li class="bg-dark text-white list-group-item">Nombre de prise : {{ count }}</li>
+            <li class="bg-dark text-white list-group-item" name="catch_count">Nombre de prise : {{ count }}</li>
             <li class="bg-dark text-white list-group-item">
                 <a href="{% url 'my_catch' %}" class="card-link text-white">Afficher mes prises</a>
             </li>

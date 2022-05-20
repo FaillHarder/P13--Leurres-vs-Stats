@@ -9,7 +9,7 @@
         {% csrf_token %}
         <h1>Voulez vous vraiment supprimer votre prise ?</h1>
             <div>
-                <button class="btn btn-danger" type="submit">Supprimer</button>
+                <button class="btn btn-danger" name="delete" type="submit">Supprimer</button>
                 <a class="btn btn-secondary" href="{% url 'my_catch' %}">Back</a>
             </div>
     </form>

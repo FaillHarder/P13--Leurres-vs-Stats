@@ -1,4 +1,4 @@
-from app.accounts import views
+from app.accounts import views, models
 from app.adddata.models import CatchFish, Lure, Color, SkyState, WaterState
 
 from django.contrib.auth import get_user_model
@@ -60,6 +60,9 @@ class TestAccountsViews(TestCase):
         self.assertContains(response, "Testemail2")
         # test catchfish count
         self.assertContains(response, "Nombre de prise : 1")
+        # test profile.__str__ return pseudo
+        profile = models.Profile.objects.get(user=self.user)
+        self.assertTrue(profile.__str__(), "testemail2")
 
     def test_edit_profile_view(self):
         self.client.login(

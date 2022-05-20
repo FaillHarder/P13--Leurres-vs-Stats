@@ -16,16 +16,26 @@
         </thead>
     
         <tbody>
-            {% for catch in page_obj %}
-                <tr>
-                    <th scope="row">{{catch.lure}}</th>
-                    <td>{{catch.color_lure}}</td>
-                    <td>{{catch.sky_state}} / {{catch.water_state}}</td>
-                    <td>
-                        <a class="text-secondary" href="{% url 'my_catch_edit' catch.pk %}">Modifier</a> / 
-                        <a class="text-danger" href="{% url 'my_catch_delete' catch.pk %}">Supprimer</a>
-                    </tr>
-            {% endfor %}
+            {% if page_obj|length == 0 %}
+            <tr>
+                <th scope="row">Aucun résultat</th>
+                <td>Aucun résultat</td>
+                <td>Aucun résultat</td>
+                <td>
+                    Aucun résultat
+                </tr>
+            {% else %}
+                {% for catch in page_obj %}
+                    <tr>
+                        <th scope="row">{{catch.lure}}</th>
+                        <td>{{catch.color_lure}}</td>
+                        <td>{{catch.sky_state}} / {{catch.water_state}}</td>
+                        <td>
+                            <a class="text-secondary" href="{% url 'my_catch_edit' catch.pk %}">Modifier</a> / 
+                            <a class="text-danger" href="{% url 'my_catch_delete' catch.pk %}">Supprimer</a>
+                        </tr>
+                {% endfor %}
+            {% endif %}
         </tbody>
     </table>
 
@@ -46,9 +56,11 @@
             {% endif %}
         </span>
     </div>
-
-
-
+<div class="row">
+    <div class="col d-flex justify-content-end">
+        <a href="{% url 'profile' %}" class="btn btn-primary">Retour</a>
+    </div>
+</div>
 
 </div>
 
