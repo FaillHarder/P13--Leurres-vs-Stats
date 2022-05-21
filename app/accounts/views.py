@@ -41,7 +41,7 @@ def edit_profile(request):
 @login_required
 def my_catch(request):
     user = request.user
-    catch_list = CatchFish.objects.filter(fisherman=user.pk).order_by("-pk")
+    catch_list = CatchFish.objects.filter(fisherman=user).order_by("-pk")
     paginator = Paginator(catch_list, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -50,7 +50,8 @@ def my_catch(request):
 
 @login_required
 def my_catch_edit(request, id):
-    catch = get_object_or_404(CatchFish, pk=id)
+    user = request.user
+    catch = get_object_or_404(CatchFish, fisherman=user, pk=id)
     form = CatchFishForm(instance=catch)
     if request.method == "POST":
         form = CatchFishForm(request.POST, instance=catch)
@@ -62,7 +63,8 @@ def my_catch_edit(request, id):
 
 @login_required
 def my_catch_delete(request, id):
-    catch = get_object_or_404(CatchFish, pk=id)
+    user = request.user
+    catch = get_object_or_404(CatchFish, fisherman=user, pk=id)
     if request.method == "POST":
         catch.delete()
         return redirect("my_catch")
