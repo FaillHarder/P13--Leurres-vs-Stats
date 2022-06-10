@@ -140,6 +140,7 @@ dmypy.json
 
 # env docker
 .env.dev
+.env.db
 .env.dev.db
 .env.prod
 .env.prod.db

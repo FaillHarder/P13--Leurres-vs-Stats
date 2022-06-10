@@ -10,13 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
-from dotenv import load_dotenv
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
 from pathlib import Path
 import os
 
-
-# variable d'environnement
-load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,15 +25,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = str(os.getenv("SECRET_KEY"))
+SECRET_KEY = str(os.environ.get("SECRET_KEY"))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = int(os.getenv("DEBUG", default=0))
+DEBUG = int(os.environ.get("DEBUG", default=0))
 
 
-ALLOWED_HOSTS = ["localhost"]
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
-CSRF_TRUSTED_ORIGINS = ["http://localhost"]
+CSRF_TRUSTED_ORIGINS = os.environ.get("CSRF_TRUSTED_ORIGINS").split(" ")
 
 # Application definition
 INSTALLED_APPS = [
@@ -88,16 +87,16 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': str(os.getenv('SQL_ENGINE')),
-        'NAME': str(os.getenv('SQL_DATABASE_NAME')),
-        'USER': str(os.getenv('SQL_USER')),
-        'PASSWORD': str(os.getenv('SQL_PASSWORD')),
-        'HOST': str(os.getenv('SQL_HOST')),
-        'PORT': str(os.getenv('SQL_PORT')),
+        'ENGINE': str(os.environ.get('SQL_ENGINE')),
+        'NAME': str(os.environ.get('SQL_DATABASE_NAME')),
+        'USER': str(os.environ.get('SQL_USER')),
+        'PASSWORD': str(os.environ.get('SQL_PASSWORD')),
+        'HOST': str(os.environ.get('SQL_HOST')),
+        'PORT': str(os.environ.get('SQL_PORT')),
     }
 }
 
-if os.getenv('GITHUB_WORKFLOW'):
+if os.environ.get('GITHUB_WORKFLOW'):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -149,7 +148,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / str(os.getenv("MEDIA_ROOT"))
+MEDIA_ROOT = BASE_DIR / str(os.environ.get("MEDIA_ROOT"))
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -159,3 +158,21 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'usermanager.User'
 
 LOGIN_REDIRECT_URL = '/'
+
+# sentry settings
+sentry_sdk.init(
+    dsn=str(os.environ.get("SENTRY_DNS")),
+    integrations=[
+        DjangoIntegration(),
+    ],
+
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    # We recommend adjusting this value in production.
+    traces_sample_rate=1.0,
+
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True
+)
+# end sentry settings
