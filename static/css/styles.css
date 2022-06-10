@@ -289,6 +289,9 @@ form .error ul li {
 }
 
 /* stats page */
+.text-stats:hover {
+    color: white;
+}
 .stats {
     position: relative;
     padding: 1rem;

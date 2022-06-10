@@ -5,7 +5,13 @@
 
 
 <div class="container container-stats">
-    <h1 class="title text-white text-center m-5">Statistiques global</h1>
+    <div class="container d-flex justify-content-center">
+        <p class="fs-5 text-center text-grey mt-5 col-lg-6 text-stats">
+            Le pourcentage d'efficacité est calculé par rapport au nombre total de prise.
+            Afin de mettre les leurres et les couleurs en compétition, pensez à remplir le formulaire pour chaque poisson péché.
+        </p>
+    </div>
+    <h1 class="title text-primary text-center mb-5">Statistiques globales</h1>
     <div class="container stats bg-dark mb-3">
         <h4 class="text-center text-white text-white">Classement des leurres</h4>
         <table class="table table-dark table-striped">
@@ -54,7 +60,7 @@
         </table>
     </div>
 
-    <h1 class="title text-white text-center m-5">Statistiques par condition</h1>
+    <h1 class="title text-primary text-center m-5">Statistiques par condition</h1>
     {% if user.is_authenticated %}
     {% for list in top_lure_color_by_states %}
     <div class="container stats bg-dark mb-3">

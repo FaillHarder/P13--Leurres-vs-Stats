@@ -21,7 +21,7 @@ WORKDIR $APP_HOME
 
 # install psycopg2 and pillow dependencies
 RUN apk update \
-    && apk add postgresql-dev gcc python3-dev musl-dev \
+    && apk add libffi-dev postgresql-dev gcc python3-dev musl-dev \
     && apk add jpeg-dev zlib-dev libjpeg \
     && pip install Pillow
 
