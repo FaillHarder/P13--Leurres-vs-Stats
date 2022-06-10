@@ -161,7 +161,7 @@ LOGIN_REDIRECT_URL = '/'
 
 # sentry settings
 sentry_sdk.init(
-    dsn=str(os.environ.get("SENTRY_DNS")),
+    dsn="https://9c8fd118a00549a980a8d89b22fdf4b5@o988851.ingest.sentry.io/6494314",
     integrations=[
         DjangoIntegration(),
     ],
